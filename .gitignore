@@ -134,3 +134,4 @@ lib/generated/intl/messages_all.dart
 
 # Server
 server/node_modules
+server/.env

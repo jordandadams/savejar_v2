@@ -1,8 +1,8 @@
-const express = require("express");
+import express from 'express'
 const authRouter = express.Router();
-const bcryptjs = require("bcryptjs");
-const User = require("../models/user");
-const jwt = require("jsonwebtoken")
+import bcryptjs from 'bcryptjs'
+import User from '../models/user.js'
+import jwt from 'jsonwebtoken'
 
 // Sign Up
 authRouter.post("/api/signUp", async (req, res) => {
@@ -54,4 +54,4 @@ authRouter.post("/api/login", async (req, res) => {
     }
 });
 
-module.exports = authRouter;
+export default authRouter

@@ -2,6 +2,9 @@
 
 all: lint format run_dev_mobile
 
+# to run this file run make (whatever)
+# ex) make format --this formats the files
+
 # Adding a help file: https://gist.github.com/prwhite/8168133#gistcomment-1313022
 help: ## This help dialog.
 	@IFS=$$'\n' ; \
