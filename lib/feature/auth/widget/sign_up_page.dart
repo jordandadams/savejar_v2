@@ -33,7 +33,7 @@ class SignUpPage extends ConsumerWidget {
             child: Column(children: <Widget>[
               const SizedBox(height: 150),
               Text(
-                context.l10n.sign_up,
+                context.l10n.signUp,
                 style: TextStyle(
                     color: Colors.grey[800],
                     fontWeight: FontWeight.bold,
@@ -76,7 +76,7 @@ class SignUpPage extends ConsumerWidget {
                   ],
                 ),
               )
-            ])));
+            ],),),);
   }
 
   Widget _widgetSignInButton(BuildContext context, WidgetRef ref) {
@@ -86,8 +86,8 @@ class SignUpPage extends ConsumerWidget {
           onPressed: () {
             context.router.pop();
           },
-          child: Text(context.l10n.sign_in),
-        ));
+          child: Text(context.l10n.signIn),
+        ),);
   }
 
   Widget _widgetSignUpButton(BuildContext context, WidgetRef ref) {
@@ -96,9 +96,9 @@ class SignUpPage extends ConsumerWidget {
         child: ElevatedButton(
           onPressed: () {
             ref.read(authProvider.notifier).signUp(_nameController.text,
-                _emailController.text, _passwordController.text);
+                _emailController.text, _passwordController.text,);
           },
-          child: Text(context.l10n.sign_up),
-        ));
+          child: Text(context.l10n.signUp),
+        ),);
   }
 }

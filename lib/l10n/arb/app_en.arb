@@ -4,8 +4,8 @@
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
     },
-    "sign_in" : "Sign In",
-    "sign_up" : "Sign Up",
+    "signIn" : "Sign In",
+    "signUp" : "Sign Up",
     "already_user" : "Already a user",
     "new_user" : "A new user?",
     "password_hint": "Password",

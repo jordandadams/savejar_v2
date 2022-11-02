@@ -19,7 +19,7 @@ class SignInPage extends ConsumerWidget {
             child: Column(children: <Widget>[
               const SizedBox(height: 150),
               Text(
-                context.l10n.sign_in,
+                context.l10n.signIn,
                 style: TextStyle(
                   color: Colors.grey[800],
                   fontWeight: FontWeight.bold,
@@ -69,7 +69,7 @@ class SignInPage extends ConsumerWidget {
                 .read(authProvider.notifier)
                 .login(_emailController.text, _passwordController.text);
           },
-          child: Text(context.l10n.sign_in),
+          child: Text(context.l10n.signIn),
         ));
   }
 
@@ -82,7 +82,7 @@ class SignInPage extends ConsumerWidget {
             //context.navigateTo(SignUpWidget)
             //const SignUpWidget().show(context);
           },
-          child: Text(context.l10n.sign_up),
+          child: Text(context.l10n.signUp),
         ));
   }
 }
