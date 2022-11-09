@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/l10n/l10n.dart';
 import 'package:flutter_boilerplate/shared/route/router.dart';
 import 'package:flutter_boilerplate/shared/route/router.gr.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class App extends StatelessWidget {
@@ -13,6 +14,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      builder: EasyLoading.init(),
       theme: ThemeData(
         appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
         colorScheme: ColorScheme.fromSwatch(
