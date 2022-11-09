@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 
 // Sign Up
 authRouter.post("/api/signUp", async (req, res) => {
+    console.log("in the sign up")
     try {
         // Sign Up Requirements
         const { name, email, password } = req.body;
@@ -33,6 +34,7 @@ authRouter.post("/api/signUp", async (req, res) => {
 
 // Sign In
 authRouter.post("/api/login", async (req, res) => {
+    console.log("in the sign in")
     try {
         // Email and Password
         const { email, password } = req.body;

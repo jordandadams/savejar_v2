@@ -4,16 +4,24 @@ import 'package:flutter_boilerplate/feature/auth/model/auth_state.dart';
 import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
 import 'package:flutter_boilerplate/l10n/l10n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../shared/constants/app_theme.dart';
 
 class SignUpPage extends ConsumerWidget {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  //form key validation
+  final _formKey = GlobalKey<FormState>();
+
   SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var mediaHeight = MediaQuery.of(context).size * 1;
+    var mediaWidth = MediaQuery.of(context).size * 1;
     ref.listen(authProvider, (previous, next) {
       if (next is AuthState) {
         next.maybeWhen(
@@ -28,85 +36,271 @@ class SignUpPage extends ConsumerWidget {
     });
 
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 150),
-            Text(
-              context.l10n.signUp,
-              style: TextStyle(
-                  color: Colors.grey[800],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40),
-            ),
-            Form(
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: context.l10n.name_hint,
-                    ),
-                    controller: _nameController,
+      backgroundColor: backgroundColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                  child: Image.asset(
+                    primaryLogoString,
+                    height: 85,
+                    width: 85,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: context.l10n.email_hint,
-                    ),
-                    controller: _emailController,
+                ),
+                Text(
+                  'Create Account!',
+                  style:
+                      GoogleFonts.getFont('Montserrat', textStyle: loginTitle),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Become a part of savejar family!',
+                        style: GoogleFonts.getFont('Montserrat',
+                            textStyle: loginSecondaryTitle),
+                      ),
+                    ],
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: context.l10n.password_hint,
-                    ),
-                    controller: _passwordController,
-                    obscureText: true,
-                  ),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        const SizedBox(height: 30),
-                        _widgetSignUpButton(context, ref),
-                        const SizedBox(height: 30),
-                        Text(
-                          context.l10n.already_user,
-                          textAlign: TextAlign.center,
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      //name input field
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: TextFormField(
+                          controller: _nameController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Full Name',
+                            labelStyle: GoogleFonts.getFont('Montserrat',
+                                textStyle: loginEmailText),
+                            hintText: 'Enter full name...',
+                            hintStyle: GoogleFonts.getFont('Montserrat',
+                                textStyle: loginEmailText),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: primaryColor,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                          ),
+                          style: GoogleFonts.getFont('Montserrat'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Enter Full Name';
+                            }
+                            return null;
+                          },
                         ),
-                        _widgetSignInButton(context, ref),
-                      ]),
-                ],
-              ),
-            )
-          ],
+                      ),
+                      //email input field
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: TextFormField(
+                          controller: _emailController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: GoogleFonts.getFont('Montserrat',
+                                textStyle: loginEmailText),
+                            hintText: 'Enter email...',
+                            hintStyle: GoogleFonts.getFont('Montserrat',
+                                textStyle: loginEmailText),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: primaryColor,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                          ),
+                          style: GoogleFonts.getFont('Montserrat'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Enter Email';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: TextFormField(
+                          controller: _passwordController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: GoogleFonts.getFont('Montserrat',
+                                textStyle: loginEmailText),
+                            hintText: 'Enter password...',
+                            hintStyle: GoogleFonts.getFont('Montserrat',
+                                textStyle: loginEmailText),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: primaryColor,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                          ),
+                          style: GoogleFonts.getFont('Montserrat'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Enter Password';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            const SizedBox(height: 30),
+                            _widgetSignUpButton(context, ref),
+                            const SizedBox(height: 5),
+                            Text(
+                              'Already a user',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.getFont('Montserrat',
+                                  textStyle: loginSecondaryTitle),
+                            ),
+                            const SizedBox(height: 5),
+                            _widgetSignInButton(context, ref),
+                          ]),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
   Widget _widgetSignInButton(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
+    return Container(
+      width: 120,
+      height: 50,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30), color: primaryColor),
+      child: TextButton(
         onPressed: () {
           context.router.pop();
         },
-        child: Text(context.l10n.signIn),
+        child: Text(
+          'Sign in',
+          style: GoogleFonts.getFont('Montserrat', textStyle: loginButtonText),
+        ),
       ),
     );
   }
 
   Widget _widgetSignUpButton(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
+    return Container(
+      width: 120,
+      height: 50,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30), color: primaryColor),
+      child: TextButton(
         onPressed: () {
-          ref.read(authProvider.notifier).signUp(
-                _nameController.text,
-                _emailController.text,
-                _passwordController.text,
-              );
+          if (_formKey.currentState!.validate()) {
+            ref.read(authProvider.notifier).signUp(
+                  _nameController.text,
+                  _emailController.text,
+                  _passwordController.text,
+                );
+          }
         },
-        child: Text(context.l10n.signUp),
+        child: Text(
+          'Sign up',
+          style: GoogleFonts.getFont('Montserrat', textStyle: loginButtonText),
+        ),
       ),
     );
   }
