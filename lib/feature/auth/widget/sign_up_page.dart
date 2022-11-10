@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature/auth/model/auth_state.dart';
 import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
-import 'package:flutter_boilerplate/l10n/l10n.dart';
+import 'package:flutter_boilerplate/shared/util/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -44,11 +44,22 @@ class SignUpPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Center(
-                  child: Image.asset(
-                    primaryLogoString,
-                    height: 85,
-                    width: 85,
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 20),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Center(
+                          child: Image.asset(
+                            primaryLogoString,
+                            height: 85,
+                            width: 85,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Text(
@@ -57,12 +68,12 @@ class SignUpPage extends ConsumerWidget {
                       GoogleFonts.getFont('Montserrat', textStyle: loginTitle),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Become a part of savejar family!',
+                        'Become a part of the SaveJar family!',
                         style: GoogleFonts.getFont('Montserrat',
                             textStyle: loginSecondaryTitle),
                       ),
@@ -75,33 +86,34 @@ class SignUpPage extends ConsumerWidget {
                     children: [
                       //name input field
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                         child: TextFormField(
                           controller: _nameController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Full Name',
+                            labelText: 'Username',
                             labelStyle: GoogleFonts.getFont('Montserrat',
                                 textStyle: loginEmailText),
-                            hintText: 'Enter full name...',
+                            hintText: 'Enter username...',
                             hintStyle: GoogleFonts.getFont('Montserrat',
                                 textStyle: loginEmailText),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: primaryColor,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.black,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red,
                                 width: 1,
                               ),
@@ -117,20 +129,25 @@ class SignUpPage extends ConsumerWidget {
                             filled: true,
                             fillColor: Colors.white,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                                const EdgeInsetsDirectional.fromSTEB(
+                                    20, 24, 20, 24),
                           ),
                           style: GoogleFonts.getFont('Montserrat'),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Enter Full Name';
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.length < 5) {
+                              return 'Please enter a valid username';
                             }
+
                             return null;
                           },
                         ),
                       ),
                       //email input field
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                         child: TextFormField(
                           controller: _emailController,
                           obscureText: false,
@@ -142,28 +159,28 @@ class SignUpPage extends ConsumerWidget {
                             hintStyle: GoogleFonts.getFont('Montserrat',
                                 textStyle: loginEmailText),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: primaryColor,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.black,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red,
                                 width: 1,
                               ),
@@ -172,19 +189,23 @@ class SignUpPage extends ConsumerWidget {
                             filled: true,
                             fillColor: Colors.white,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                                const EdgeInsetsDirectional.fromSTEB(
+                                    20, 24, 20, 24),
                           ),
                           style: GoogleFonts.getFont('Montserrat'),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Enter Email';
+                            Validator.isValidEmail(value);
+                            if (Validator.isValidEmail(value) == false) {
+                              return 'Please enter a valid email!';
                             }
+
                             return null;
                           },
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                         child: TextFormField(
                           controller: _passwordController,
                           obscureText: false,
@@ -196,28 +217,28 @@ class SignUpPage extends ConsumerWidget {
                             hintStyle: GoogleFonts.getFont('Montserrat',
                                 textStyle: loginEmailText),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: primaryColor,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.black,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red,
                                 width: 1,
                               ),
@@ -226,32 +247,38 @@ class SignUpPage extends ConsumerWidget {
                             filled: true,
                             fillColor: Colors.white,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                                const EdgeInsetsDirectional.fromSTEB(
+                                    20, 24, 20, 24),
                           ),
                           style: GoogleFonts.getFont('Montserrat'),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Enter Password';
+                            Validator.isValidPassWord(value);
+                            if (Validator.isValidPassWord(value) == false) {
+                              return 'Please enter a valid password!';
                             }
+
                             return null;
                           },
                         ),
                       ),
                       Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            const SizedBox(height: 30),
-                            _widgetSignUpButton(context, ref),
-                            const SizedBox(height: 5),
-                            Text(
-                              'Already a user',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.getFont('Montserrat',
-                                  textStyle: loginSecondaryTitle),
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          const SizedBox(height: 30),
+                          _widgetSignUpButton(context, ref),
+                          const SizedBox(height: 15),
+                          Text(
+                            'Already a user?',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.getFont(
+                              'Montserrat',
+                              textStyle: loginSecondaryTitle,
                             ),
-                            const SizedBox(height: 5),
-                            _widgetSignInButton(context, ref),
-                          ]),
+                          ),
+                          const SizedBox(height: 15),
+                          _widgetSignInButton(context, ref),
+                        ],
+                      ),
                     ],
                   ),
                 )
@@ -268,7 +295,9 @@ class SignUpPage extends ConsumerWidget {
       width: 120,
       height: 50,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30), color: primaryColor),
+        borderRadius: BorderRadius.circular(30),
+        color: primaryColor,
+      ),
       child: TextButton(
         onPressed: () {
           context.router.pop();
@@ -286,7 +315,9 @@ class SignUpPage extends ConsumerWidget {
       width: 120,
       height: 50,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30), color: primaryColor),
+        borderRadius: BorderRadius.circular(30),
+        color: primaryColor,
+      ),
       child: TextButton(
         onPressed: () {
           if (_formKey.currentState!.validate()) {

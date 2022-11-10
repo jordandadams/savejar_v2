@@ -24,15 +24,17 @@ class AuthRepository implements AuthRepositoryProtocol {
 
   @override
   Future<AuthState> login(String email, String password) async {
-    EasyLoading.show(status: "Loading...");
+    await EasyLoading.show(status: 'Loading...');
     if (!Validator.isValidPassWord(password)) {
-      EasyLoading.showError("Error");
+      await EasyLoading.showError('Error');
+
       return const AuthState.error(
         AppException.errorWithMessage('Minimum 8 characters required'),
       );
     }
     if (!Validator.isValidEmail(email)) {
-      EasyLoading.showError("Error");
+      await EasyLoading.showError('Error');
+
       return const AuthState.error(
         AppException.errorWithMessage('Please enter a valid email address'),
       );
@@ -49,17 +51,19 @@ class AuthRepository implements AuthRepositoryProtocol {
       final token = Token.fromJson(success as Map<String, dynamic>);
 
       await tokenRepository.saveToken(token);
-      EasyLoading.showSuccess("Success");
+      await EasyLoading.showSuccess('Success');
+
       return const AuthState.loggedIn();
     }, error: (error) {
-      EasyLoading.showError("$error");
+      EasyLoading.showError('$error');
+
       return AuthState.error(error);
-    });
+    },);
   }
 
   @override
   Future<AuthState> signUp(String name, String email, String password) async {
-    EasyLoading.show();
+    await EasyLoading.show();
     if (!Validator.isValidPassWord(password)) {
       return const AuthState.error(
         AppException.errorWithMessage('Minimum 8 characters required'),
@@ -83,12 +87,14 @@ class AuthRepository implements AuthRepositoryProtocol {
       final token = Token.fromJson(success as Map<String, dynamic>);
 
       await tokenRepository.saveToken(token);
-      EasyLoading.showSuccess('Created Account Successfully');
+      await EasyLoading.showSuccess('Created Account Successfully');
+
       return const AuthState.loggedIn();
     }, error: (error) {
       EasyLoading.showError('Unable to create account');
-      print("sign up error is $error");
+      print('sign up error is $error');
+
       return AuthState.error(error);
-    });
+    },);
   }
 }

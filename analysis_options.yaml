@@ -30,9 +30,7 @@ dart_code_metrics:
   metrics-exclude:
     - test/**
   rules:
-    - newline-before-return
     - no-boolean-literal-compare
-    - no-empty-block
     - prefer-conditional-expressions
     - no-equal-then-else
     - missing_return: false

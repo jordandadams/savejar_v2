@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_boilerplate/feature/auth/widget/forgot_password_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_in_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_up_page.dart';
 
@@ -7,4 +8,12 @@ const signInRouter = AutoRoute(
   page: SignInPage,
 );
 
-const signUpRouter = AutoRoute(path: '/signUp', page: SignUpPage);
+const signUpRouter = AutoRoute(
+  path: '/signUp',
+  page: SignUpPage,
+);
+
+const forgotPasswordRouter = AutoRoute(
+  path: '/forgotPassword',
+  page: ForgotPasswordPage,
+);
