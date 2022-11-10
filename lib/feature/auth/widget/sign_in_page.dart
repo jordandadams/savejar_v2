@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature/auth/model/auth_state.dart';
 import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
 import 'package:flutter_boilerplate/shared/route/router.gr.dart';
+import 'package:flutter_boilerplate/shared/util/email_validator.dart';
+import 'package:flutter_boilerplate/shared/util/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../shared/constants/app_theme.dart';
@@ -173,9 +175,9 @@ class SignInPage extends ConsumerWidget {
                                               'Montserrat',
                                             ),
                                             validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Enter Email';
+                                              Validator.isValidEmail(value);
+                                              if (Validator.isValidEmail(value) == false) {
+                                                return 'Please enter a valid email!';
                                               }
 
                                               return null;
@@ -262,9 +264,9 @@ class SignInPage extends ConsumerWidget {
                                             style: GoogleFonts.getFont(
                                                 'Montserrat'),
                                             validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Enter Password';
+                                              Validator.isValidPassWord(value);
+                                              if (Validator.isValidPassWord(value) == false) {
+                                                return 'Please enter a valid password!';
                                               }
 
                                               return null;
