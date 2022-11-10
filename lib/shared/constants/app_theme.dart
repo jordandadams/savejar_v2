@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // App Theme Colors
 const primaryColor = Color.fromARGB(255, 10, 129, 26);
-const secondaryColor= Color.fromARGB(255, 0, 0, 0);
+const secondaryColor = Color.fromARGB(255, 0, 0, 0);
 const inputTextColor = Color.fromARGB(255, 162, 174, 188);
 const backgroundColor = Colors.white;
 const forgotPasswordColor = Color.fromARGB(255, 0, 94, 255);
@@ -36,7 +36,6 @@ const TextStyle loginButtonText = TextStyle(
 // const TextStyle loginTxtStyle = TextStyle(fontSize: 22, color: Colors.white, height: 1.5, fontFamily: 'Karla');
 
 // Button Styles
-
 
 // Images
 AssetImage primaryLogoTrans = AssetImage('assets/app_logo_1_trans.png');

@@ -20,7 +20,8 @@ class AppRouteObserver extends AutoRouterObserver {
     AutoRoute(page: AppStartPage, initial: true),
     homeRouter,
     signInRouter,
-    signUpRouter
+    signUpRouter,
+    forgotPasswordRouter
   ],
 )
 class $AppRouter {}
