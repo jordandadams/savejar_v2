@@ -245,9 +245,9 @@ class SignInPage extends ConsumerWidget {
                                                 onTap: () => ref
                                                     .read(
                                                       passwordLoginVisibilityProvider
-                                                          .state,
+                                                          .notifier,
                                                     )
-                                                    .state = false,
+                                                    .state = !passwordLoginVisibility,
                                                 focusNode: FocusNode(
                                                     skipTraversal: true),
                                                 child: Icon(

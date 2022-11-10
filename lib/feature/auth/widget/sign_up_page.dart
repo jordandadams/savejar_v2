@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature/auth/model/auth_state.dart';
 import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
+import 'package:flutter_boilerplate/shared/route/router.gr.dart';
 import 'package:flutter_boilerplate/shared/util/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,14 +13,20 @@ class SignUpPage extends ConsumerWidget {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final passwordLoginVisibilityProvider = StateProvider<bool>((ref) => true);
 
   //form key validation
   final _formKey = GlobalKey<FormState>();
+
+  void togglePasswordView(Widget ref) {
+    
+  }
 
   SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool passwordLoginVisibility = ref.watch(passwordLoginVisibilityProvider);
     var mediaHeight = MediaQuery.of(context).size * 1;
     var mediaWidth = MediaQuery.of(context).size * 1;
     ref.listen(authProvider, (previous, next) {
@@ -208,14 +215,18 @@ class SignUpPage extends ConsumerWidget {
                             const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                         child: TextFormField(
                           controller: _passwordController,
-                          obscureText: false,
+                          obscureText: passwordLoginVisibility,
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: GoogleFonts.getFont('Montserrat',
-                                textStyle: loginEmailText),
-                            hintText: 'Enter password...',
-                            hintStyle: GoogleFonts.getFont('Montserrat',
-                                textStyle: loginEmailText),
+                            labelStyle: GoogleFonts.getFont(
+                              'Montserrat',
+                              textStyle: loginEmailText,
+                            ),
+                            hintText: 'Enter your password...',
+                            hintStyle: GoogleFonts.getFont(
+                              'Montserrat',
+                              textStyle: loginEmailText,
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                 color: primaryColor,
@@ -249,6 +260,21 @@ class SignUpPage extends ConsumerWidget {
                             contentPadding:
                                 const EdgeInsetsDirectional.fromSTEB(
                                     20, 24, 20, 24),
+                            suffixIcon: InkWell(
+                              onTap: () => ref
+                                  .read(
+                                    passwordLoginVisibilityProvider.notifier,
+                                  )
+                                  .state = !passwordLoginVisibility,
+                              focusNode: FocusNode(skipTraversal: true),
+                              child: Icon(
+                                passwordLoginVisibility
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                color: Colors.black,
+                                size: 20,
+                              ),
+                            ),
                           ),
                           style: GoogleFonts.getFont('Montserrat'),
                           validator: (value) {
@@ -326,6 +352,7 @@ class SignUpPage extends ConsumerWidget {
                   _emailController.text,
                   _passwordController.text,
                 );
+            context.router.push(SignInRoute());
           }
         },
         child: Text(

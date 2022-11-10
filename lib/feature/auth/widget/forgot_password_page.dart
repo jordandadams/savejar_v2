@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature/auth/model/auth_state.dart';
 import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
 import 'package:flutter_boilerplate/shared/route/router.gr.dart';
+import 'package:flutter_boilerplate/shared/util/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../shared/constants/app_theme.dart';
 
 class ForgotPasswordPage extends ConsumerWidget {
-  final _passwordController = TextEditingController();
-  final passwordLoginVisibilityProvider = StateProvider<bool>((ref) => false);
+  final _emailController = TextEditingController();
 
   ForgotPasswordPage({Key? key}) : super(key: key);
 
@@ -18,7 +18,6 @@ class ForgotPasswordPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool passwordLoginVisibility = ref.watch(passwordLoginVisibilityProvider);
     ref.listen(authProvider, (previous, next) {
       if (next is AuthState) {
         next.maybeWhen(
@@ -46,38 +45,48 @@ class ForgotPasswordPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Text(
+                  'Reset Password',
+                  style:
+                      GoogleFonts.getFont('Montserrat', textStyle: loginTitle),
+                ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 200, 0, 10),
-                  child: Text(
-                    'Reset Password',
-                    style: GoogleFonts.getFont('Montserrat',
-                        textStyle: loginTitle),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Please insert the email associated with your\naccount to receive a password reset link!',
+                        style: GoogleFonts.getFont('Montserrat',
+                            textStyle: loginSecondaryTitle),
+                      ),
+                    ],
                   ),
                 ),
                 Form(
                   key: _formKey,
                   child: Column(
                     children: [
-                      //password input field
+                      //email input field
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                            const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: TextFormField(
-                          controller: _passwordController,
-                          obscureText: passwordLoginVisibility,
+                          controller: _emailController,
+                          obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Password',
+                            labelText: 'Email Address',
                             labelStyle: GoogleFonts.getFont(
                               'Montserrat',
                               textStyle: loginEmailText,
                             ),
-                            hintText: 'Enter your password...',
+                            hintText: 'Enter your email...',
                             hintStyle: GoogleFonts.getFont(
                               'Montserrat',
                               textStyle: loginEmailText,
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: primaryColor,
                                 width: 1,
                               ),
@@ -109,26 +118,14 @@ class ForgotPasswordPage extends ConsumerWidget {
                             contentPadding:
                                 const EdgeInsetsDirectional.fromSTEB(
                                     20, 24, 20, 24),
-                            suffixIcon: InkWell(
-                              onTap: () => ref
-                                  .read(
-                                    passwordLoginVisibilityProvider.state,
-                                  )
-                                  .state = false,
-                              focusNode: FocusNode(skipTraversal: true),
-                              child: Icon(
-                                passwordLoginVisibility
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
-                                color: Colors.black,
-                                size: 20,
-                              ),
-                            ),
                           ),
-                          style: GoogleFonts.getFont('Montserrat'),
+                          style: GoogleFonts.getFont(
+                            'Montserrat',
+                          ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Enter Password';
+                            Validator.isValidEmail(value);
+                            if (Validator.isValidEmail(value) == false) {
+                              return 'Please enter a valid email!';
                             }
 
                             return null;
@@ -164,7 +161,7 @@ class ForgotPasswordPage extends ConsumerWidget {
       child: TextButton(
         onPressed: () {},
         child: Text(
-          'Reset Password',
+          'Send Reset Password Link',
           style: GoogleFonts.getFont('Montserrat', textStyle: loginButtonText),
         ),
       ),
