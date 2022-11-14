@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 // App Theme Colors
 const primaryColor = Color.fromARGB(255, 10, 129, 26);
+var secondaryPrimaryColor = Colors.grey[200];
+var lightPrimaryColor = Colors.green;
 const secondaryColor = Color.fromARGB(255, 0, 0, 0);
 const inputTextColor = Color.fromARGB(255, 162, 174, 188);
 const backgroundColor = Colors.white;
@@ -41,3 +43,22 @@ const TextStyle loginButtonText = TextStyle(
 AssetImage primaryLogoTrans = AssetImage('assets/app_logo_1_trans.png');
 AssetImage primaryLogoTrans2 = AssetImage('assets/app_logo_1_trans_green.png');
 var primaryLogoString = 'assets/app_logo_1_trans_green.png';
+
+//HomeScreen
+const TextStyle headline1 = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+  color: backgroundColor,
+);
+
+const TextStyle headline2 = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 16,
+  color: secondaryColor,
+);
+
+const TextStyle headline3 = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 14,
+  color: backgroundColor,
+);
